@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>LocalStorage</title>
+  </head>
+  <body>
+    <h1>Todo list</h1>
+    <input type="text" id="taskId" />
+    <button type="submit" id="pushBtn">Add</button>
+    <button type="submit" id="popBtn">Remove</button>
+
+    <p id="result"></p>
+    <p id="checkResult"></p>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script>
+      //   let person = {
+      //     name: "Joe",
+      //     age: "25",
+      //     country: "Syria"
+      //   };
+      //   localStorage.setItem("person", JSON.stringify(person));
+      //   console.log(localStorage.getItem("person"));
+      //   document.getElementById("result").innerHTML = localStorage.getItem(
+      //     "person"
+      //   );
+      let todoList = [];
+
+      function outPut() {
+        let outputs = "";
+        for (let i = 0; i < todoList.length; i++) {
+          outputs += "<div>" + todoList[i] + "</div>";
+        }
+        $("#result").html(outputs);
+      }
+      $("#pushBtn").click(function() {
+        let data = $("#taskId").val();
+        todoList.push(data);
+        localStorage.setItem("todoList", todoList);
+
+        let newTask = localStorage.getItem("todoList");
+        $("#result").html(newTask);
+        outPut();
+      });
+
+      $("#popBtn").click(function() {
+        let data = $("#taskId").val();
+        todoList.pop(data);
+        localStorage.setItem("todoList", todoList);
+
+        let newTask = localStorage.getItem("todoList");
+        $("#result").html(newTask);
+        outPut();
+      });
+
+      $(() => {
+        $("#checkResult").html(localStorage.getItem("todoList"));
+      });
+    </script>
+  </body>
+</html>
